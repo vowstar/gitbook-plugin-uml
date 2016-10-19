@@ -29,10 +29,8 @@ function processBlock(blk) {
 
         var assetPath = './assets/images/uml/';
         var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
-        fs.mkdirs(assetPath, function(err) {
-            if (err)
-                console.error(err);
-        })
+
+        fs.mkdirpSync(assetPath);
 
         fs.writeFile(filePath, buffer, (err) => {
             if (err)
