@@ -14,6 +14,14 @@ Gitbook PlantUml plugin can be installed from NPM using:
 $ npm install gitbook-plugin-uml
 ```
 
+book.json add the plugin
+
+```
+{
+  "plugins": ["uml"]
+}
+```
+
 ## Features
 
 * Support HTML, PDF, EPUB output(make sure your gitbook support SVG)
@@ -26,7 +34,6 @@ $ npm install gitbook-plugin-uml
 ![](./images/uml.png)
 
 **Image uml.**
-
 
 ## How to use it
 
@@ -50,15 +57,37 @@ To include a PlantUML diagram, just wrap your definition in a "uml" code block. 
 ```
 </code></pre>
 
+Also you can put in your book block as
+
+```
+{% uml %}
+@startuml
+
+	Class Stage
+	Class Timeout {
+		+constructor:function(cfg)
+		+timeout:function(ctx)
+		+overdue:function(ctx)
+		+stage: Stage
+	}
+ 	Stage &lt;|-- Timeout
+
+@enduml
+{% enduml %}
+```
+
 ## Configuration
 
 book.json add the uml options
 
 Configure plugin in `book.json`.
 
+
 ```
-{
-    "plugins": ["uml"]
+"pluginsConfig": {
+  "uml": {
+    format: 'png'
+  }
 }
 ```
 
