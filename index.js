@@ -1,8 +1,11 @@
+var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs-extra');
 var crypto = require('crypto');
 var plantuml = require('node-plantuml');
 var Q = require('q');
+
+var ASSET_PATH = 'assets/images/uml/';
 
 function processBlock(blk) {
     var deferred = Q.defer();
@@ -27,7 +30,7 @@ function processBlock(blk) {
         if (config)
             format = config.format;
 
-        var assetPath = './assets/images/uml/';
+        var assetPath = ASSET_PATH;
         var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
 
         fs.mkdirpSync(assetPath);
@@ -75,9 +78,9 @@ module.exports = {
             var book = this;
             var output = book.output;
             var rootPath = output.root();
-            if (rootPath) {
-                fs.mkdirs(rootPath + '/assets/images/uml/');
-                fs.copy('./assets/images/uml/', rootPath + '/assets/images/uml/', {
+            if (fs.existsSync(ASSET_PATH)) {
+                fs.mkdirs(path.join(rootPath + ASSET_PATH));
+                fs.copy(ASSET_PATH, path.join(rootPath + ASSET_PATH), {
                     clobber: true
                 }, function(err) {
                     if (err)
