@@ -1,0 +1,43 @@
+{
+  "author": {
+    "name": "Huang Rui"
+  },
+  "bugs": {
+    "url": "https://github.com/vowstar/gitbook-plugin-uml/issues"
+  },
+  "dependencies": {
+    "fs-extra":"^0.30.0",
+    "crypto": "^0.0.3",
+    "q": "^1.4.1",
+    "node-plantuml":"^0.5.0"
+  },
+  "description": "PlantUML plugin for GitBook",
+  "devDependencies": {},
+  "directories": {},
+  "engines": {
+    "gitbook": "*"
+  },
+  "homepage": "https://github.com/vowstar/gitbook-plugin-uml",
+  "keywords": [
+    "diagrams",
+    "uml",
+    "plugin",
+    "gitbook"
+  ],
+  "license": "Apache 2",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "vowstar@gmail.com",
+      "name": "Huang Rui"
+    }
+  ],
+  "name": "gitbook-plugin-uml",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vowstar/gitbook-plugin-uml.git"
+  },
+  "scripts": {},
+  "version": "0.1.0"
+}
