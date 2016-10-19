@@ -79,8 +79,8 @@ module.exports = {
             var output = book.output;
             var rootPath = output.root();
             if (fs.existsSync(ASSET_PATH)) {
-                fs.mkdirs(path.join(rootPath + ASSET_PATH));
-                fs.copy(ASSET_PATH, path.join(rootPath + ASSET_PATH), {
+                fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                fs.copy(ASSET_PATH, path.join(rootPath, ASSET_PATH), {
                     clobber: true
                 }, function(err) {
                     if (err)
