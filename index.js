@@ -40,7 +40,7 @@ function processBlock(blk) {
                 console.error(err);
         });
 
-        var result = "<img src=" + filePath + ">";
+        var result = "<img src=/" + filePath + ">";
         deferred.resolve(result);
     })
     return deferred.promise;
@@ -80,12 +80,13 @@ module.exports = {
             var rootPath = output.root();
             if (fs.existsSync(ASSET_PATH)) {
                 fs.mkdirs(path.join(rootPath, ASSET_PATH));
-                fs.copy(ASSET_PATH, path.join(rootPath, ASSET_PATH), {
-                    clobber: true
-                }, function(err) {
-                    if (err)
-                        console.error(err)
-                })
+                // fs.copy(ASSET_PATH, path.join(rootPath, ASSET_PATH), {
+                //     clobber: true
+                // }, function(err) {
+                //     if (err)
+                //         console.error(err)
+                // })
+                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
             }
         },
 
