@@ -86,10 +86,13 @@ Configure plugin in `book.json`.
 ```
 "pluginsConfig": {
   "uml": {
-    format: 'png'
+    format: 'png',
+    nailgun: false
   }
 }
 ```
+
+The plugin can be configured to use [Nailgun](http://martiansoftware.com/nailgun/) but by default it does not.
 
 ## Build and serve
 

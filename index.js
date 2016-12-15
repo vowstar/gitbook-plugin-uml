@@ -5,6 +5,8 @@ var crypto = require('crypto');
 var plantuml = require('node-plantuml');
 var Q = require('q');
 
+var nailgunRunning = false;
+
 var ASSET_PATH = 'assets/images/uml/';
 
 function processBlock(blk) {
@@ -63,6 +65,12 @@ module.exports = {
             if (!Object.keys(this.book.config.get('pluginsConfig.uml', {})).length) {
                 this.book.config.set('pluginsConfig.uml', {
                     format: 'png'
+                });
+            }
+            var startNailgun = this.book.config.get('plugins.uml.nailgun', false);
+            if (startNailgun && !nailgunRunning) {
+                plantuml.useNailgun(function() {
+                    nailgunRunning = true;
                 });
             }
         },
