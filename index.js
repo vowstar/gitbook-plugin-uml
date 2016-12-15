@@ -35,12 +35,14 @@ function processBlock(blk) {
         var assetPath = ASSET_PATH;
         var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
 
-        fs.mkdirpSync(assetPath);
+        if (!fs.existsSync(filePath)) {
+            fs.mkdirpSync(assetPath);
 
-        fs.writeFile(filePath, buffer, (err) => {
-            if (err)
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err)
                 console.error(err);
-        });
+            });
+        }
 
         var result = "<img src=/" + filePath + ">";
         deferred.resolve(result);
