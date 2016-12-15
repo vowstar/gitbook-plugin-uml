@@ -20,33 +20,36 @@ function processBlock(blk) {
         config = blk.kwargs['config'];
     }
 
-    var gen = plantuml.generate(code, config);
+    var format = "png";
+    if (config && config.format)
+        format = config.format;
 
-    var chunks = [];
-    gen.out.on('data', function(chunk) {
-        chunks.push(chunk)
-    })
-    gen.out.on('end', function() {
-        var buffer = Buffer.concat(chunks)
-        var format = "png";
-        if (config)
-            format = config.format;
+    var assetPath = ASSET_PATH;
+    var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
 
-        var assetPath = ASSET_PATH;
-        var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
+    if (fs.existsSync(filePath)) {
+        var result = "<img src=/" + filePath + ">";
+        deferred.resolve(result);
+    } else {
+        var gen = plantuml.generate(code, config);
 
-        if (!fs.existsSync(filePath)) {
+        var chunks = [];
+        gen.out.on('data', function(chunk) {
+            chunks.push(chunk)
+        })
+        gen.out.on('end', function() {
+            var buffer = Buffer.concat(chunks)
             fs.mkdirpSync(assetPath);
 
             fs.writeFile(filePath, buffer, (err) => {
                 if (err)
-                console.error(err);
+                  console.error(err);
             });
-        }
 
-        var result = "<img src=/" + filePath + ">";
-        deferred.resolve(result);
-    })
+            var result = "<img src=/" + filePath + ">";
+            deferred.resolve(result);
+        })
+    }
     return deferred.promise;
 }
 
