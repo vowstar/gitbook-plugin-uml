@@ -69,7 +69,7 @@ module.exports = {
                     format: 'png'
                 });
             }
-            var startNailgun = this.book.config.get('plugins.uml.nailgun', false);
+            var startNailgun = this.book.config.get('pluginsConfig.uml.nailgun', false);
             if (startNailgun && !nailgunRunning) {
                 plantuml.useNailgun(function() {
                     nailgunRunning = true;
