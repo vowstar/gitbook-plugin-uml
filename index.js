@@ -5,6 +5,8 @@ var crypto = require('crypto');
 var plantuml = require('node-plantuml');
 var Q = require('q');
 
+var nailgunRunning = false;
+
 var ASSET_PATH = 'assets/images/uml/';
 
 function processBlock(blk) {
@@ -18,31 +20,36 @@ function processBlock(blk) {
         config = blk.kwargs['config'];
     }
 
-    var gen = plantuml.generate(code, config);
+    var format = "png";
+    if (config && config.format)
+        format = config.format;
 
-    var chunks = [];
-    gen.out.on('data', function(chunk) {
-        chunks.push(chunk)
-    })
-    gen.out.on('end', function() {
-        var buffer = Buffer.concat(chunks)
-        var format = "png";
-        if (config)
-            format = config.format;
+    var assetPath = ASSET_PATH;
+    var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
 
-        var assetPath = ASSET_PATH;
-        var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
-
-        fs.mkdirpSync(assetPath);
-
-        fs.writeFile(filePath, buffer, (err) => {
-            if (err)
-                console.error(err);
-        });
-
+    if (fs.existsSync(filePath)) {
         var result = "<img src=/" + filePath + ">";
         deferred.resolve(result);
-    })
+    } else {
+        var gen = plantuml.generate(code, config);
+
+        var chunks = [];
+        gen.out.on('data', function(chunk) {
+            chunks.push(chunk)
+        })
+        gen.out.on('end', function() {
+            var buffer = Buffer.concat(chunks)
+            fs.mkdirpSync(assetPath);
+
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err)
+                  console.error(err);
+            });
+
+            var result = "<img src=/" + filePath + ">";
+            deferred.resolve(result);
+        })
+    }
     return deferred.promise;
 }
 
@@ -63,6 +70,12 @@ module.exports = {
             if (!Object.keys(this.book.config.get('pluginsConfig.uml', {})).length) {
                 this.book.config.set('pluginsConfig.uml', {
                     format: 'png'
+                });
+            }
+            var startNailgun = this.book.config.get('pluginsConfig.uml.nailgun', false);
+            if (startNailgun && !nailgunRunning) {
+                plantuml.useNailgun(function() {
+                    nailgunRunning = true;
                 });
             }
         },
