@@ -119,6 +119,10 @@ For Linux users, Install *graphviz* package.
 
 ```$ sudo yum install graphviz```
 
+Debian/Ubuntu users may need install ``default-jre`` prevent Error: spawn java ENOENT.
+
+```$ sudo apt-get install default-jre```
+
 This plugin original from [lyhcode/gitbook-plugin-plantuml](https://github.com/lyhcode/gitbook-plugin-plantuml)
 
 
