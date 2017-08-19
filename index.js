@@ -110,7 +110,7 @@ module.exports = {
         // Before parsing documents
         "page:before": function(page) {
             // Get all code texts
-            umls = page.content.match(/^```uml((.*\n)+?)?```$/igm);
+            umls = page.content.match(/^```uml((.*[\r\n]+)+?)?```$/igm);
             // Begin replace
             if (umls instanceof Array) {
                 for (var i = 0, len = umls.length; i < len; i++) {
