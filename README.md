@@ -1,6 +1,8 @@
 # gitbook-plugin-uml
 
-[![NPM](https://nodei.co/npm/gitbook-plugin-uml.png)](https://nodei.co/npm/gitbook-plugin-uml/)
+[![NPM Version](https://img.shields.io/npm/v/gitbook-plugin-uml.svg?style=flat)](https://www.npmjs.org/package/gitbook-plugin-uml)
+[![Build Status](https://img.shields.io/travis/vowstar/gitbook-plugin-uml/master.svg?style=flat)](https://travis-ci.org/vowstar/gitbook-plugin-uml)
+[![NPM Downloads](https://img.shields.io/npm/dm/gitbook-plugin-uml.svg?style=flat)](https://www.npmjs.org/package/gitbook-plugin-uml)
 
 [PlantUml](http://www.plantuml.com/) Plugin for [GitBook](https://github.com/GitbookIO/gitbook)
 
