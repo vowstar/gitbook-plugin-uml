@@ -62,7 +62,7 @@ module.exports = {
     hooks: {
         // For all the hooks, this represent the current generator
         // [init", "finish", "finish:before", "page", "page:before"] are working.
-        // page:* are marked as deprecated because it's better if plugins start using blocks instead. 
+        // page:* are marked as deprecated because it's better if plugins start using blocks instead.
         // But page and page:before will probably stay at the end (useful in some cases).
 
         // This is called before the book is generated
@@ -117,6 +117,16 @@ module.exports = {
                     page.content = page.content.replace(
                         umls[i],
                         umls[i].replace(/^```uml/, '{% uml %}').replace(/```$/, '{% enduml %}'));
+                }
+            }
+            // Get all code texts
+            umls = page.content.match(/^```puml((.*[\r\n]+)+?)?```$/igm);
+            // Begin replace
+            if (umls instanceof Array) {
+                for (var i = 0, len = umls.length; i < len; i++) {
+                    page.content = page.content.replace(
+                        umls[i],
+                        umls[i].replace(/^```puml/, '{% uml %}').replace(/```$/, '{% enduml %}'));
                 }
             }
             return page;
