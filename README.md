@@ -25,15 +25,14 @@ book.json add the plugin
 ## Features
 
 * Support HTML, PDF, EPUB output(make sure your gitbook support SVG)
-* Support ```flow code block quote
+* Support `` ``` ``flow code block quote
 * Multi code style support
 
 
-### Beautiful UML
+## Beautiful UML
 
 ![](./images/uml.png)
-
-**Image uml.**
+**Image of uml**
 
 ## How to use it
 
@@ -42,6 +41,24 @@ To include a PlantUML diagram, just wrap your definition in a "uml" code block. 
 *Text format uml:*
 
 <pre><code>```uml
+@startuml
+
+	Class Stage
+	Class Timeout {
+		+constructor:function(cfg)
+		+timeout:function(ctx)
+		+overdue:function(ctx)
+		+stage: Stage
+	}
+ 	Stage &lt;|-- Timeout
+
+@enduml
+```
+</code></pre>
+
+And what's more, "puml" code block also OK.
+
+<pre><code>```puml
 @startuml
 
 	Class Stage
@@ -100,7 +117,7 @@ This plugin only works in your local machine. You need to play with local `gitbo
 
 ```$ gitbook serve yourbook```
 
-or 
+or
 
 ```$ gitbook build yourbook```
 
@@ -124,5 +141,3 @@ Debian/Ubuntu users may need install ``default-jre`` prevent Error: spawn java E
 ```$ sudo apt-get install default-jre```
 
 This plugin original from [lyhcode/gitbook-plugin-plantuml](https://github.com/lyhcode/gitbook-plugin-plantuml)
-
-
