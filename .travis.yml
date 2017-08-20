@@ -1,0 +1,9 @@
+sudo: false
+language: node_js
+node_js:
+  - "stable"
+addons:
+  apt:
+    packages:
+      - graphviz
+      - default-jre

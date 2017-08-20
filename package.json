@@ -6,13 +6,16 @@
     "url": "https://github.com/vowstar/gitbook-plugin-uml/issues"
   },
   "dependencies": {
-    "fs-extra":"^4.0.1",
+    "fs-extra": "^4.0.1",
     "crypto": "^1.0.1",
     "q": "^1.5.0",
-    "node-plantuml":"git://github.com/vowstar/node-plantuml.git#master"
+    "node-plantuml": "git://github.com/vowstar/node-plantuml.git#master"
   },
   "description": "PlantUML plugin for GitBook",
-  "devDependencies": {},
+  "devDependencies": {
+    "gitbook-tester": "^1.4.3",
+    "mocha": "^3.5.0"
+  },
   "directories": {},
   "engines": {
     "gitbook": "*"
@@ -24,7 +27,7 @@
     "plugin",
     "gitbook"
   ],
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "main": "index.js",
   "maintainers": [
     {
@@ -36,8 +39,10 @@
   "optionalDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/vowstar/gitbook-plugin-uml.git"
+    "url": "https://github.com/vowstar/gitbook-plugin-uml.git"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec --timeout 15000"
+  },
   "version": "0.1.9"
 }
