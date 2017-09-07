@@ -13,7 +13,14 @@ function processBlock(blk) {
     var deferred = Q.defer();
 
     var book = this;
-    var code = blk.body;
+
+    var code;
+    if (!!blk.kwargs.src) {
+        code = fs.readFileSync(blk.kwargs.src , "utf8");
+    } else {
+        code = blk.body;
+    }
+
     var config = book.config.get('pluginsConfig.uml', {});
 
     if (blk.kwargs['config']) {
