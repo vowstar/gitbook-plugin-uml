@@ -95,6 +95,12 @@ Also you can put in your book block as
 {% enduml %}
 ```
 
+The block syntax also allows for a `src` attribute to import an external PlantUml file. 
+
+```
+{% uml src="test.plantuml" %}{% enduml %}
+```
+
 ## Configuration
 
 book.json add the uml options
