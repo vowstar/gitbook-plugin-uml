@@ -117,23 +117,13 @@ module.exports = {
         // Before parsing documents
         "page:before": function(page) {
             // Get all code texts
-            umls = page.content.match(/^```uml((.*[\r\n]+)+?)?```$/igm);
+            umls = page.content.match(/```(uml|puml|plantuml)((.*[\r\n]+)+?)?```/igm);
             // Begin replace
             if (umls instanceof Array) {
                 for (var i = 0, len = umls.length; i < len; i++) {
                     page.content = page.content.replace(
                         umls[i],
-                        umls[i].replace(/^```uml/, '{% uml %}').replace(/```$/, '{% enduml %}'));
-                }
-            }
-            // Get all code texts
-            umls = page.content.match(/^```puml((.*[\r\n]+)+?)?```$/igm);
-            // Begin replace
-            if (umls instanceof Array) {
-                for (var i = 0, len = umls.length; i < len; i++) {
-                    page.content = page.content.replace(
-                        umls[i],
-                        umls[i].replace(/^```puml/, '{% uml %}').replace(/```$/, '{% enduml %}'));
+                        umls[i].replace(/```(uml|puml|plantuml)/, '{% uml %}').replace(/```/, '{% enduml %}'));
                 }
             }
             return page;
