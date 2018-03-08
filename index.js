@@ -85,6 +85,15 @@ module.exports = {
                     nailgunRunning = true;
                 });
             }
+
+            // Copy images to output folder every time
+            var book = this;
+            var output = book.output;
+            var rootPath = output.root();
+            if (fs.existsSync(ASSET_PATH)) {
+                fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
+            }
         },
 
         // This is called after the book generation
@@ -94,20 +103,6 @@ module.exports = {
 
         // Before the end of book generation
         "finish:before": function() {
-            // Copy images to output folder every time
-            var book = this;
-            var output = book.output;
-            var rootPath = output.root();
-            if (fs.existsSync(ASSET_PATH)) {
-                fs.mkdirs(path.join(rootPath, ASSET_PATH));
-                // fs.copy(ASSET_PATH, path.join(rootPath, ASSET_PATH), {
-                //     clobber: true
-                // }, function(err) {
-                //     if (err)
-                //         console.error(err)
-                // })
-                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
-            }
         },
 
         // The following hooks are called for each page of the book
