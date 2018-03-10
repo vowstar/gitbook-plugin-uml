@@ -75,9 +75,23 @@ module.exports = {
         // This is called before the book is generated
         "init": function() {
             if (!Object.keys(this.book.config.get('pluginsConfig.uml', {})).length) {
-                this.book.config.set('pluginsConfig.uml', {
-                    format: 'png'
-                });
+                var book = this;
+                var output = book.output;
+                var name = output.name.toString();
+
+                // NOTE: This fixed issue #2
+                // https://github.com/vowstar/gitbook-plugin-uml/issues/2
+                // Use SVG format by default in website when user not give
+                // any configuration to get better result.
+                if (name == 'website') {
+                    this.book.config.set('pluginsConfig.uml', {
+                        format: 'svg'
+                    });
+                } else {
+                    this.book.config.set('pluginsConfig.uml', {
+                        format: 'png'
+                    });
+                }
             }
             var startNailgun = this.book.config.get('pluginsConfig.uml.nailgun', false);
             if (startNailgun && !nailgunRunning) {
@@ -103,6 +117,17 @@ module.exports = {
 
         // Before the end of book generation
         "finish:before": function() {
+            // NOTE: This fixed issue #7
+            // https://github.com/vowstar/gitbook-plugin-uml/issues/7
+            // HTML will load after this operation
+            // Copy images to output folder every time
+            var book = this;
+            var output = book.output;
+            var rootPath = output.root();
+            if (fs.existsSync(ASSET_PATH)) {
+                fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
+            }
         },
 
         // The following hooks are called for each page of the book
