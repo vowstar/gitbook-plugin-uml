@@ -40,6 +40,21 @@ describe('uml', function() {
                 assert.equal(passPng || passSvg, true);
             });
     });
+    it('should correctly replace by ```plantuml``` tag', function() {
+        return tester.builder()
+            .withContent('\n```plantuml\n@startuml\n(A)->(B)\n@enduml\n```')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                plugins: ['uml']
+            })
+            .create()
+            .then(function(result) {
+                var passPng = (result[0].content == TEST_CONTENT_PNG);
+                var passSvg = (result[0].content == TEST_CONTENT_SVG);
+                assert.equal(passPng || passSvg, true);
+            });
+    });
     it('should correctly replace by {% uml %} and enduml {% enduml %} tag', function() {
         return tester.builder()
             .withContent('\n{% uml %}\n@startuml\n(A)->(B)\n@enduml\n{% enduml %}')
@@ -58,6 +73,21 @@ describe('uml', function() {
     it('should correctly use external plantuml file specified by {% uml src="" %} and enduml {% enduml %} tag', function() {
         return tester.builder()
             .withContent('\n{% uml src="test/test.plantuml"%}{% enduml %}')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                plugins: ['uml']
+            })
+            .create()
+            .then(function(result) {
+                var passPng = (result[0].content == TEST_SRCFILE_PNG);
+                var passSvg = (result[0].content == TEST_SRCFILE_SVG);
+                assert.equal(passPng || passSvg, true);
+            });
+    });
+    it('should correctly use external plantuml file specified by ```puml {src=""} tag', function() {
+        return tester.builder()
+            .withContent('\n```puml { src = "test/test.plantuml" }\n```')
             .withLocalPlugin(path.join(__dirname, '..'))
             .withBookJson({
                 gitbook: pkg.engines.gitbook,

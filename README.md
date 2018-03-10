@@ -58,7 +58,7 @@ To include a PlantUML diagram, just wrap your definition in a "uml" code block. 
 ```
 </code></pre>
 
-And what's more, "puml" code block also OK.
+And what's more, ```puml``` and ```plantuml``` code block also OK.
 
 <pre><code>```puml
 @startuml
@@ -95,11 +95,17 @@ Also you can put in your book block as
 {% enduml %}
 ```
 
-The block syntax also allows for a `src` attribute to import an external PlantUml file. 
+The block syntax also allows for a `src` attribute to import an external PlantUml file.
 
 ```
 {% uml src="test.plantuml" %}{% enduml %}
 ```
+
+Of course, you can also pass the parameters like this.
+
+<pre><code>```puml { src="test.plantuml" }
+```
+</code></pre>
 
 ## Configuration
 
