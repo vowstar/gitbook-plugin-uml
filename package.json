@@ -9,7 +9,7 @@
     "fs-extra": "^4.0.1",
     "crypto": "^1.0.1",
     "q": "^1.5.0",
-    "node-plantuml": "git://github.com/vowstar/node-plantuml.git#master"
+    "node-plantuml": "https://github.com/vowstar/node-plantuml.git#master"
   },
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
