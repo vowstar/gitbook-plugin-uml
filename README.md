@@ -10,19 +10,31 @@ This is a sample plugin for GitBook and is specially adapted for GitBook from [P
 
 ## Installation
 
+Install JRE or JDK please. Ensure your system have java.
+
+It will download plantuml jar file automatically, so in some country and region you must install it behind a proxy, or it will download fail.
+
 Gitbook PlantUml plugin can be installed from NPM using:
 
 ```bash
-$ npm install gitbook-plugin-uml
+npm install gitbook-plugin-uml
 ```
 
 book.json add the plugin
 
-```
+```json
 {
   "plugins": ["uml"]
 }
 ```
+
+## FAQ
+
+Important:
+
+** Please ensure your system have java!!! Or this plugin may not work, and get ```Error: spawn java ENOENT```
+
+** It will download plantuml jar file automatically, so in some country and region you must install it behind a proxy, or it will download fail.
 
 ## Features
 
@@ -30,10 +42,9 @@ book.json add the plugin
 * Support `` ``` ``flow code block quote
 * Multi code style support
 
-
 ## Beautiful UML
 
-![](./images/uml.png)
+![UML](./images/uml.png)
 **Image of uml**
 
 ## How to use it
@@ -97,7 +108,7 @@ Also you can put in your book block as
 
 The block syntax also allows for a `src` attribute to import an external PlantUml file.
 
-```
+```json
 {% uml src="test.plantuml" %}{% enduml %}
 ```
 
@@ -114,7 +125,7 @@ book.json add the uml options
 Configure plugin in `book.json`.
 
 
-```
+```json
 "pluginsConfig": {
   "uml": {
     format: 'png',
@@ -137,21 +148,29 @@ or
 
 ## Additional requirements:
 
- - Create a directory */assets/images/uml* in the root of your project.
- - [Install PlantUML.](http://www.plantuml.com/download.html) (Download plantuml.jar to root path)
+* Create a directory */assets/images/uml* in the root of your project.
+* [Install PlantUML.](http://www.plantuml.com/download.html) (Download plantuml.jar to root path)
 
 For Mac OS X users. Install *graphviz* package.
 
-```$ brew install graphviz```
+```bash
+brew install graphviz
+```
 
 For Linux users, Install *graphviz* package.
 
-```$ sudo apt install graphviz```
+```bash
+sudo apt install graphviz
+```
 
-```$ sudo yum install graphviz```
+```bash
+sudo yum install graphviz
+```
 
 Debian/Ubuntu users may need install ``default-jre`` prevent Error: spawn java ENOENT.
 
-```$ sudo apt-get install default-jre```
+```bash
+sudo apt-get install default-jre
+```
 
 This plugin original from [lyhcode/gitbook-plugin-plantuml](https://github.com/lyhcode/gitbook-plugin-plantuml)
