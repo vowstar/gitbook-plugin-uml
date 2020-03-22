@@ -108,7 +108,7 @@ Also you can put in your book block as
 
 The block syntax also allows for a `src` attribute to import an external PlantUml file.
 
-```json
+```text
 {% uml src="test.plantuml" %}{% enduml %}
 ```
 
@@ -128,8 +128,8 @@ Configure plugin in `book.json`.
 ```json
 "pluginsConfig": {
   "uml": {
-    format: 'png',
-    nailgun: false
+    "format": "png",
+    "nailgun": false
   }
 }
 ```
@@ -140,11 +140,15 @@ The plugin can be configured to use [Nailgun](http://martiansoftware.com/nailgun
 
 This plugin only works in your local machine. You need to play with local `gitbook` (command-line tool) to pre-compile all uml images.
 
-```$ gitbook serve yourbook```
+```terminal
+$ gitbook serve yourbook
+```
 
 or
 
-```$ gitbook build yourbook```
+```terminal
+$ gitbook build yourbook
+```
 
 ## Additional requirements:
 
