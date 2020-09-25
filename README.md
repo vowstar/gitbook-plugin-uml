@@ -6,7 +6,7 @@
 
 [PlantUml](http://www.plantuml.com/) Plugin for [Honkit](https://github.com/honkit/honkit) ~~and [GitBook](https://github.com/GitbookIO/gitbook)~~.
 
-This is a sample plugin for GitBook and is specially adapted for GitBook from [PlantUML](http://www.plantuml.com/index.html). Gitbook PlantUml plugin is used to select from markdown uml and converting it into a picture format svg.
+This is a sample plugin for ~~GitBook~~ Honkit and is specially adapted for ~~GitBook~~ Honkit from [PlantUML](http://www.plantuml.com/index.html). ~~Gitbook~~ Honkit PlantUml plugin is used to select from markdown uml and converting it into a picture format svg.
 
 ## Installation
 
