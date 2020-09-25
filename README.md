@@ -4,11 +4,13 @@
 [![Build Status](https://img.shields.io/travis/vowstar/gitbook-plugin-uml/master.svg?style=flat)](https://travis-ci.org/vowstar/gitbook-plugin-uml)
 [![NPM Downloads](https://img.shields.io/npm/dm/gitbook-plugin-uml.svg?style=flat)](https://www.npmjs.org/package/gitbook-plugin-uml)
 
-[PlantUml](http://www.plantuml.com/) Plugin for [GitBook](https://github.com/GitbookIO/gitbook)
+[PlantUml](http://www.plantuml.com/) Plugin for [Honkit](https://github.com/honkit/honkit) ~~and [GitBook](https://github.com/GitbookIO/gitbook)~~.
 
 This is a sample plugin for GitBook and is specially adapted for GitBook from [PlantUML](http://www.plantuml.com/index.html). Gitbook PlantUml plugin is used to select from markdown uml and converting it into a picture format svg.
 
 ## Installation
+
+Install honkit instead of gitbook-cli(deprecated).
 
 Install JRE or JDK please. Ensure your system have java.
 
