@@ -42,7 +42,7 @@
     "url": "https://github.com/vowstar/gitbook-plugin-uml.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec --timeout 15000"
+    "test": "node_modules/.bin/mocha --reporter spec --timeout 150000"
   },
   "version": "1.0.5"
 }
