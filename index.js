@@ -48,12 +48,27 @@ function processBlock(blk) {
             var buffer = Buffer.concat(chunks)
             fs.mkdirpSync(assetPath);
 
-            fs.writeFile(filePath, buffer, (err) => {
+            fs.writeFileSync(filePath, buffer, (err) => {
                 if (err)
                   console.error(err);
             });
 
             var result = "<img src=/" + filePath + ">";
+
+            // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/17
+            // To make sure the asserts always copied before pdf generation
+            // Copy images to output folder every time
+            var output = book.output;
+            var rootPath = output.root();
+            var destFilePath = path.join(rootPath, ASSET_PATH);
+            if (fs.existsSync(ASSET_PATH)) {
+                if (!fs.existsSync(destFilePath)) {
+                    fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                    fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
+                }
+            } else {
+                console.error("File not exist:" + filePath);
+            }
             deferred.resolve(result);
         })
     }
@@ -99,42 +114,22 @@ module.exports = {
                     nailgunRunning = true;
                 });
             }
-
-            // Copy images to output folder every time
-            var book = this;
-            var output = book.output;
-            var rootPath = output.root();
-            if (fs.existsSync(ASSET_PATH)) {
-                fs.mkdirs(path.join(rootPath, ASSET_PATH));
-                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
-            }
         },
 
         // This is called after the book generation
         "finish": function() {
-            // Done
+            // This is called after the book generation
         },
 
-        // Before the end of book generation
+        // This is called before the end of book generation
         "finish:before": function() {
-            // NOTE: This fixed issue #7
-            // https://github.com/vowstar/gitbook-plugin-uml/issues/7
-            // HTML will load after this operation
-            // Copy images to output folder every time
-            var book = this;
-            var output = book.output;
-            var rootPath = output.root();
-            if (fs.existsSync(ASSET_PATH)) {
-                fs.mkdirs(path.join(rootPath, ASSET_PATH));
-                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
-            }
+            // This is called before the end of book generation
         },
 
         // The following hooks are called for each page of the book
         // and can be used to change page content (html, data or markdown)
 
-
-        // Before parsing documents
+        // This is called before parsing documents
         "page:before": function(page) {
             // Get all code texts
             umls = page.content.match(/```(uml|puml|plantuml)((.*[\r\n]+)+?)?```/igm);
@@ -203,18 +198,9 @@ module.exports = {
             return page;
         },
 
+        // This is called when page html generation
         "page": function(page) {
-            // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/17
-            // After parsed HTML documents
-            // To make sure the asserts always copied before pdf generation
-            // Copy images to output folder every time
-            var book = this;
-            var output = book.output;
-            var rootPath = output.root();
-            if (fs.existsSync(ASSET_PATH)) {
-                fs.mkdirs(path.join(rootPath, ASSET_PATH));
-                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
-            }
+            // This is called when page html generation
             return page;
         }
     }
