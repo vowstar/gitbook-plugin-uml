@@ -201,6 +201,21 @@ module.exports = {
                 }
             }
             return page;
+        },
+
+        "page": function(page) {
+            // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/17
+            // After parsed HTML documents
+            // To make sure the asserts always copied before pdf generation
+            // Copy images to output folder every time
+            var book = this;
+            var output = book.output;
+            var rootPath = output.root();
+            if (fs.existsSync(ASSET_PATH)) {
+                fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
+            }
+            return page;
         }
     }
 };
