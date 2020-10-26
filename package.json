@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "fs-extra": "^4.0.1",
-    "crypto": "^1.0.1",
     "q": "^1.5.0",
     "node-plantuml": "https://github.com/vowstar/node-plantuml.git#001bec0"
   },
