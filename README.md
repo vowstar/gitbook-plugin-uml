@@ -136,8 +136,6 @@ Configure plugin in `book.json`.
 }
 ```
 
-The plugin can be configured to use [Nailgun](http://martiansoftware.com/nailgun/) but by default it does not.
-
 ## Build and serve
 
 This plugin only works in your local machine. You need to play with local `gitbook` (command-line tool) to pre-compile all uml images.
