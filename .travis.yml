@@ -17,4 +17,4 @@ deploy:
     secure: iXdDdkA2K1aNjmtI5fyxwCMhhloo3erf2yImhu/sqvHJRvb0IpTEorcW3zfKTLstFPhImrg/QvPWJmhwQ8b7eVjA6q8KQVu9Ti4NpqASnY+/Lb48XG9FF35Yzxa9DX/1v+ouZ2f4skSCvXMY1se4Ze3L+jjyXOm0kI1iRwBW+TOXvvHkIpVKqJJFz4lI7U2kKdhy5yREh3J3MSqYrLO0Ev5SWxX/YSOvqi6UWaWv8o1buFxQrjf1iZusLeXXXQpUjUtDFlLNJZ35VoOn8SJ2IHNHFrgpOfkOQt+0fBICb2UEQiPTKzR3xcssWUjr4C7/kHEXWuunEyQClDQJScR+Qe4qDq4TdwgGoc7/zqXA2OUOenijzIRaFX5h36S5ktmNi+vbG/n+WtltDs+MnLfwP/IysYS66MRMfFU87DytqtkQPYij9gxBtyv992QxqJ4eIpdqVySABZpo9/d2CffGxtVQyw3a8zGokpQtE7JQjsmguY1S5iDwAA24ZJ18+WBmBb+qvVXYouVvTI9Hlp24PCFFi6zQE30cTHQwUgOFdL7fnJMFkd1UdYicZRbaaBrh8hr5uz59ytIkTOlgyP09cq6GTDsSw+awZXkGZwJSm74A2qfinScgZs+pR2n/04oNO0gLuZTcOC8cOdAphGUWKzena0z4TQSeIMZD5TKj/RA=
   on:
     tags: true
-    repo: vowstar/honkit-tester
+    repo: vowstar/gitbook-plugin-uml
