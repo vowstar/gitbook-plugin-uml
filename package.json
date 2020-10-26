@@ -7,13 +7,17 @@
   },
   "dependencies": {
     "fs-extra": "^9.0.1",
-    "q": "^1.5.1",
-    "node-plantuml": "https://github.com/vowstar/node-plantuml.git#master"
+    "node-plantuml": "https://github.com/vowstar/node-plantuml.git#master",
+    "npx": "^10.2.2",
+    "q": "^1.5.1"
   },
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
-    "gitbook-tester": "^1.4.3",
-    "mocha": "^3.5.0"
+    "honkit-tester": "https://github.com/vowstar/honkit-tester.git#master",
+    "mocha": "^3.5.0",
+    "coveralls": ">=3.1.0",
+    "jshint": ">=2.12.0",
+    "nyc": "^15.1.0"
   },
   "directories": {},
   "engines": {
@@ -24,7 +28,8 @@
     "diagrams",
     "uml",
     "plugin",
-    "gitbook"
+    "gitbook",
+    "honkit"
   ],
   "license": "Apache-2.0",
   "main": "index.js",
@@ -41,7 +46,10 @@
     "url": "https://github.com/vowstar/gitbook-plugin-uml.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec --timeout 150000"
+    "lint": "jshint index.js test/**.js",
+    "pretest": "npm run lint",
+    "test": "nyc --reporter=lcov mocha --reporter spec --timeout 150000",
+    "coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "version": "1.0.6"
 }

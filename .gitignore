@@ -1,3 +1,5 @@
 node_modules/
 assets/
+coverage/
 package-lock.json
+.nyc_output/

@@ -23,8 +23,8 @@ function processBlock(blk) {
 
     var config = book.config.get('pluginsConfig.uml', {});
 
-    if (blk.kwargs['config']) {
-        config = blk.kwargs['config'];
+    if (blk.kwargs.config) {
+        config = blk.kwargs.config;
     }
 
     var format = "svg";
@@ -42,13 +42,13 @@ function processBlock(blk) {
 
         var chunks = [];
         gen.out.on('data', function(chunk) {
-            chunks.push(chunk)
-        })
+            chunks.push(chunk);
+        });
         gen.out.on('end', function() {
-            var buffer = Buffer.concat(chunks)
+            var buffer = Buffer.concat(chunks);
             fs.mkdirpSync(assetPath);
 
-            fs.writeFileSync(filePath, buffer, (err) => {
+            fs.writeFileSync(filePath, buffer, function(err) {
                 if (err)
                   console.error(err);
             });
@@ -70,7 +70,7 @@ function processBlock(blk) {
                 console.error("File not exist:" + filePath);
             }
             deferred.resolve(result);
-        })
+        });
     }
     return deferred.promise;
 }
