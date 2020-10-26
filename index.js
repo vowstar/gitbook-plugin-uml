@@ -27,7 +27,7 @@ function processBlock(blk) {
         config = blk.kwargs['config'];
     }
 
-    var format = "png";
+    var format = "svg";
     if (config && config.format)
         format = config.format;
 
