@@ -9,7 +9,7 @@
     "fs-extra": "^4.0.1",
     "crypto": "^1.0.1",
     "q": "^1.5.0",
-    "node-plantuml": "^0.9.0"
+    "node-plantuml": "https://github.com/vowstar/node-plantuml.git#001bec0"
   },
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
@@ -44,5 +44,5 @@
   "scripts": {
     "test": "node_modules/.bin/mocha --reporter spec --timeout 150000"
   },
-  "version": "1.0.5"
+  "version": "1.0.6"
 }
