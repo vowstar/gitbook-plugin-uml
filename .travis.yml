@@ -1,5 +1,3 @@
-sudo: required
-dist: focal
 language: node_js
 node_js:
 - '10'
@@ -11,6 +9,7 @@ addons:
     - default-jre
 before_script:
   - npm -v && node -v
+  - npm install && npm install --only=dev
 after_script:
   - npm run coverage
 deploy:
