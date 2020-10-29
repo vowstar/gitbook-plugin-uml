@@ -94,7 +94,7 @@ And what's more, ```puml``` and ```plantuml``` code block also OK.
 
 Also you can put in your book block as
 
-```
+```markdown
 {% uml %}
 @startuml
 
