@@ -8,6 +8,10 @@ addons:
     packages:
     - graphviz
     - default-jre
+before_script:
+  - npm -v && node -v
+after_script:
+  - npm run coverage
 deploy:
   provider: npm
   email: vowstar@gmail.com
