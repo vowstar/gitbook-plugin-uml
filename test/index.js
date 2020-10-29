@@ -70,6 +70,7 @@ describe('uml', function() {
         return tester.builder()
             .withContent('\n{% uml src="test/test.plantuml"%}{% enduml %}')
             .withLocalPlugin(path.join(__dirname, '..'))
+            .withLocalDir(path.join(__dirname, '..', 'test'))
             .withBookJson({
                 plugins: ['uml']
             })
@@ -84,6 +85,7 @@ describe('uml', function() {
         return tester.builder()
             .withContent('\n```puml { src = "test/test.plantuml" }\n```')
             .withLocalPlugin(path.join(__dirname, '..'))
+            .withLocalDir(path.join(__dirname, '..', 'test'))
             .withBookJson({
                 plugins: ['uml']
             })
