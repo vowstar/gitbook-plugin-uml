@@ -14,10 +14,10 @@
   },
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
-    "honkit-tester": "^1.8.0",
-    "mocha": "^8.2.0",
     "coveralls": ">=3.1.0",
+    "honkit-tester": "^1.8.0",
     "jshint": ">=2.12.0",
+    "mocha": "^8.2.0",
     "nyc": "^15.1.0"
   },
   "directories": {},
