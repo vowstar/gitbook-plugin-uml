@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "fs-extra": "^9.0.1",
-    "node-plantuml": "https://github.com/vowstar/node-plantuml.git#master",
+    "node-plantuml-back": "^1.0.0",
     "npx": "^10.2.2",
     "promise": "^8.1.0",
     "q": "^1.5.1"
@@ -15,7 +15,7 @@
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
     "coveralls": ">=3.1.0",
-    "honkit-tester": "^1.8.0",
+    "honkit-tester": "^1.9.0",
     "jshint": ">=2.12.0",
     "mocha": "^8.2.0",
     "nyc": "^15.1.0"
@@ -52,5 +52,5 @@
     "test": "nyc --reporter=lcov mocha --reporter spec --timeout 200000",
     "coverage": "cat ./coverage/lcov.info | coveralls"
   },
-  "version": "1.2.1"
+  "version": "1.2.2"
 }
