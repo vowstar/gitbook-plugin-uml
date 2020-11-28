@@ -2,7 +2,7 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var fs = require('fs-extra');
 var crypto = require('crypto');
-var plantuml = require('node-plantuml');
+var plantuml = require('node-plantuml-back');
 var Q = require('q');
 
 var nailgunRunning = false;
