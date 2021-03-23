@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "fs-extra": "^9.0.1",
-    "node-plantuml-back": "^1.0.4",
+    "node-plantuml-back": "^1.0.6",
     "npx": "^10.2.2",
     "promise": "^8.1.0",
     "q": "^1.5.1"
@@ -52,5 +52,5 @@
     "test": "nyc --reporter=lcov mocha --reporter spec --timeout 200000",
     "coverage": "cat ./coverage/lcov.info | coveralls"
   },
-  "version": "1.2.6"
+  "version": "1.2.7"
 }
