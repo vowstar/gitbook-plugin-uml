@@ -2,12 +2,14 @@ language: node_js
 node_js:
 - '10'
 - '12'
-- '14'
+- lts/*
 addons:
   apt:
     packages:
     - graphviz
     - default-jre
+install:
+  - npm ci --no-optional
 before_script:
   - npm -v && node -v
   - npm install && npm install --only=dev
@@ -21,3 +23,4 @@ deploy:
   on:
     tags: true
     repo: vowstar/gitbook-plugin-uml
+    node: lts/*
