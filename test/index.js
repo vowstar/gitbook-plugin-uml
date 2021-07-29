@@ -108,8 +108,6 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                console.log(TEST_SRCFILE_SVG);
-                console.log(TEST_SRCFILE_PNG);
                 var passPng = (result[0].content == TEST_INCFILE_PNG);
                 var passSvg = (result[0].content == TEST_INCFILE_SVG);
                 assert(passPng || passSvg, true);
