@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "fs-extra": "^10.0.0",
-    "node-plantuml-back": "^1.0.9",
+    "node-plantuml-back": "^1.1.0",
     "npx": "^10.2.2",
     "promise": "^8.1.0",
     "q": "^1.5.1"
