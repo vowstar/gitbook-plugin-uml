@@ -4,26 +4,45 @@ var assert = require('assert');
 
 var pkg = require('../package.json');
 
-var TEST_CONTENT_PNG = '<p><img src="assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.png"></p>';
-var TEST_CONTENT_SVG = '<p><img src="assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg"></p>';
-var TEST_SRCFILE_PNG = '<p><img src="assets/images/uml/5e39e6908033eaefb9e853d01eb7f2462a7ea69c.png"></p>';
-var TEST_SRCFILE_SVG = '<p><img src="assets/images/uml/5e39e6908033eaefb9e853d01eb7f2462a7ea69c.svg"></p>';
-var TEST_INCFILE_PNG = '<p><img src="assets/images/uml/b25548fd30f84bae07fd6b18e02a5015fe3531d2.png"></p>';
-var TEST_INCFILE_SVG = '<p><img src="assets/images/uml/b25548fd30f84bae07fd6b18e02a5015fe3531d2.svg"></p>';
-
 describe('uml', function() {
-    it('should correctly replace by ```uml``` tag', function() {
+    it('should correctly replace by ```uml``` tag, mode: svg', function() {
         return tester.builder()
             .withContent('\n```uml\n@startuml\n(A)->(B)\n@enduml\n```')
             .withLocalPlugin(path.join(__dirname, '..'))
             .withBookJson({
-                plugins: ['uml']
+                plugins: ['uml'],
+                pluginsConfig: {
+                    uml: {
+                        format: "svg",
+                        nailgun: false
+                    }
+                }
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_CONTENT_PNG);
-                var passSvg = (result[0].content == TEST_CONTENT_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
+            });
+    });
+    it('should correctly replace by ```uml``` tag, mode: png', function() {
+        return tester.builder()
+            .withContent('\n```uml\n@startuml\n(A)->(B)\n@enduml\n```')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                plugins: ['uml'],
+                pluginsConfig: {
+                    uml: {
+                        format: "png",
+                        nailgun: false
+                    }
+                }
+            })
+            .create()
+            .then(function(result) {
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.png';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('PNG'), true);
             });
     });
     it('should correctly replace by ```puml``` tag', function() {
@@ -35,9 +54,9 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_CONTENT_PNG);
-                var passSvg = (result[0].content == TEST_CONTENT_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
     it('should correctly replace by ```plantuml``` tag', function() {
@@ -49,9 +68,9 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_CONTENT_PNG);
-                var passSvg = (result[0].content == TEST_CONTENT_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
     it('should correctly replace by {% uml %} and enduml {% enduml %} tag', function() {
@@ -63,9 +82,9 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_CONTENT_PNG);
-                var passSvg = (result[0].content == TEST_CONTENT_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
     it('should correctly use external plantuml file specified by {% uml src="" %} and enduml {% enduml %} tag', function() {
@@ -78,9 +97,9 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_SRCFILE_PNG);
-                var passSvg = (result[0].content == TEST_SRCFILE_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/5e39e6908033eaefb9e853d01eb7f2462a7ea69c.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
     it('should correctly use external plantuml file specified by ```puml {src=""} tag', function() {
@@ -93,9 +112,9 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_SRCFILE_PNG);
-                var passSvg = (result[0].content == TEST_SRCFILE_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/5e39e6908033eaefb9e853d01eb7f2462a7ea69c.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
     it('should correctly use external plantuml file specified by ```puml @startuml !include ... @enduml tag', function() {
@@ -108,9 +127,31 @@ describe('uml', function() {
             })
             .create()
             .then(function(result) {
-                var passPng = (result[0].content == TEST_INCFILE_PNG);
-                var passSvg = (result[0].content == TEST_INCFILE_SVG);
-                assert(passPng || passSvg, true);
+                var targetFile = 'assets/images/uml/b25548fd30f84bae07fd6b18e02a5015fe3531d2.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
+            });
+    });
+    it('should correctly use external plantuml file specified in subdirectory', function() {
+        return tester.builder()
+            .withPage('nested/testpage','\n```puml\n@startuml\n!include test/test.plantuml\n@enduml\n```')
+            .withFile('nested/test/test.plantuml', '@startuml\n(A)->(B)\n@enduml')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withLocalDir(path.join(__dirname, '..', 'test'))
+            .withBookJson({
+                plugins: ['uml'],
+                pluginsConfig: {
+                    uml: {
+                        format: "svg",
+                        nailgun: false
+                    }
+                }
+            })
+            .create()
+            .then(function(result) {
+                var targetFile = 'assets/images/uml/b25548fd30f84bae07fd6b18e02a5015fe3531d2.svg';
+                assert(result.get('nested/testpage.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
 });

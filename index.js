@@ -34,6 +34,20 @@ function processBlock(blk) {
     var assetPath = ASSET_PATH;
     var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
 
+    if (this.ctx && this.ctx.ctx && this.ctx.ctx.file && this.ctx.ctx.file.path) {
+        var includePath = path.resolve(path.dirname(this.ctx.ctx.file.path));
+        var cwdPath = require("process").cwd();
+        if (includePath == cwdPath) {
+            config.include = includePath + ':' + cwdPath;
+        } else {
+            if (require("process").platform == 'win32') {
+                config.include = includePath + ';' + cwdPath;
+            } else {
+                config.include = includePath + ':' + cwdPath;
+            }
+        }
+    }
+
     if (fs.existsSync(filePath)) {
         var result = "<img src=/" + filePath + ">";
         deferred.resolve(result);
@@ -98,14 +112,29 @@ module.exports = {
                 // https://github.com/vowstar/gitbook-plugin-uml/issues/2
                 // Use SVG format by default in website when user not give
                 // any configuration to get better result.
-                if (name == 'website') {
-                    this.book.config.set('pluginsConfig.uml', {
-                        format: 'svg'
-                    });
+                var config = book.config.get('pluginsConfig.uml', {});
+
+                if (config && config.format) {
+                    // Do nothing here, user have set config
                 } else {
-                    this.book.config.set('pluginsConfig.uml', {
-                        format: 'png'
-                    });
+                    if (name == 'website') {
+                        this.book.config.set('pluginsConfig.uml', {
+                            format: 'svg'
+                        });
+                    } else {
+                        // Auto select svg or png
+                        if (this.honkit) {
+                            // honkit support svg better, so use svg
+                            this.book.config.set('pluginsConfig.uml', {
+                                format: 'svg'
+                            });
+                        } else {
+                            // gitbook pdf not support svg
+                            this.book.config.set('pluginsConfig.uml', {
+                                format: 'png'
+                            });
+                        }
+                    }
                 }
             }
             var startNailgun = this.book.config.get('pluginsConfig.uml.nailgun', false);
