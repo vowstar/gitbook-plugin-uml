@@ -77,7 +77,11 @@ function processBlock(blk) {
             var destFilePath = path.join(rootPath, ASSET_PATH);
             if (fs.existsSync(ASSET_PATH)) {
                 if (!fs.existsSync(destFilePath)) {
-                    fs.mkdirs(path.join(rootPath, ASSET_PATH));
+                    fs.mkdirSync(path.join(rootPath, ASSET_PATH), { recursive: true });
+                }
+                // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/22
+                // When destFilePath exist, file should copied
+                if (fs.existsSync(destFilePath)) {
                     fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
                 }
             } else {

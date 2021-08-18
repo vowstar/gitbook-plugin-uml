@@ -154,4 +154,21 @@ describe('uml', function() {
                 assert(result.get(targetFile).content.includes('<polygon fill'), true);
             });
     });
+    it('should correctly generate multi puml file', function() {
+        return tester.builder()
+            .withContent('\n```puml\n@startuml\n(A)->(B)\n@enduml\n```\nHello\n```puml\n@startuml\n(C)->(D)\n@enduml\n```')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                plugins: ['uml']
+            })
+            .create()
+            .then(function(result) {
+                var targetFile = 'assets/images/uml/39e6cfed5bc41c359e02bb07bcfcbcb365bd61eb.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
+                targetFile = 'assets/images/uml/b8d9c8ad9d60d1889365be04217e700042cabc04.svg';
+                assert(result.get('index.html').content.includes(targetFile), true);
+                assert(result.get(targetFile).content.includes('<polygon fill'), true);
+            });
+    });
 });
