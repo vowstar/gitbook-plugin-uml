@@ -74,15 +74,15 @@ function processBlock(blk) {
             // Copy images to output folder every time
             var output = book.output;
             var rootPath = output.root();
-            var destFilePath = path.join(rootPath, ASSET_PATH);
-            if (fs.existsSync(ASSET_PATH)) {
-                if (!fs.existsSync(destFilePath)) {
-                    fs.mkdirSync(path.join(rootPath, ASSET_PATH), { recursive: true });
-                }
+            var destFilePath = path.join(rootPath, assetPath);
+            if (fs.existsSync(assetPath)) {
                 // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/22
                 // When destFilePath exist, file should copied
                 if (fs.existsSync(destFilePath)) {
-                    fs.copySync(ASSET_PATH, path.join(rootPath, ASSET_PATH));
+                    fs.copySync(assetPath, path.join(rootPath, assetPath));
+                } else {
+                    fs.mkdirSync(path.join(rootPath, assetPath), { recursive: true });
+                    fs.copySync(assetPath, path.join(rootPath, assetPath));
                 }
             } else {
                 console.error("File not exist:" + filePath);
