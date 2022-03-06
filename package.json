@@ -8,16 +8,15 @@
   "dependencies": {
     "fs-extra": "^10.0.0",
     "node-plantuml-back": "^1.1.0",
-    "npx": "^10.2.2",
     "promise": "^8.1.0",
     "q": "^1.5.1"
   },
   "description": "PlantUML plugin for GitBook",
   "devDependencies": {
     "coveralls": "^3.1.1",
-    "honkit-tester": "^1.9.6",
-    "jshint": "^2.13.1",
-    "mocha": "^9.1.1",
+    "honkit-tester": "^1.9.7",
+    "jshint": "^2.13.4",
+    "mocha": "^9.2.1",
     "nyc": "^15.1.0"
   },
   "directories": {},
@@ -52,5 +51,5 @@
     "test": "nyc --reporter=lcov mocha --reporter spec --timeout 200000",
     "coverage": "cat ./coverage/lcov.info | coveralls"
   },
-  "version": "1.2.12"
+  "version": "1.2.15"
 }
