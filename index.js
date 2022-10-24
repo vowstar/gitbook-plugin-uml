@@ -165,14 +165,14 @@ module.exports = {
         // This is called before parsing documents
         "page:before": function(page) {
             // Get all code texts
-            umls = page.content.match(/```(uml|puml|plantuml)((.*[\r\n]+)+?)?```/igm);
+            umls = page.content.match(/```(\x20|\t)*(uml|puml|plantuml)((.*[\r\n]+)+?)?```/igm);
             // Begin replace
             if (umls instanceof Array) {
                 for (var i = 0, len = umls.length; i < len; i++) {
                     page.content = page.content.replace(
                         umls[i],
                         // Parameter parser for user argument to gitbook argument
-                        umls[i].replace(/```(uml|puml|plantuml)[ \t]+{(.*)}/i,
+                        umls[i].replace(/```(\x20|\t)*(uml|puml|plantuml)[ \t]+{(.*)}/i,
                             function(match, p1, p2) {
                                 var newStr = "";
                                 var modeQuote = false;
@@ -224,7 +224,7 @@ module.exports = {
 
                                 return "{% uml " + newStr + " %}";
                             })
-                        .replace(/```(uml|puml|plantuml)/i, '{% uml %}')
+                        .replace(/```(\x20|\t)*(uml|puml|plantuml)/i, '{% uml %}')
                         .replace(/```/, '{% enduml %}'));
                 }
             }
