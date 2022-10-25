@@ -33,6 +33,8 @@ function processBlock(blk) {
 
     var assetPath = ASSET_PATH;
     var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
+    var rootPath = book.output.root();
+    var destFilePath = path.join(rootPath, assetPath);
 
     if (this.ctx && this.ctx.ctx && this.ctx.ctx.file && this.ctx.ctx.file.path) {
         var includePath = path.resolve(path.dirname(this.ctx.ctx.file.path));
@@ -48,7 +50,7 @@ function processBlock(blk) {
         }
     }
 
-    if (fs.existsSync(filePath)) {
+    if (fs.existsSync(filePath) && fs.existsSync(destFilePath)) {
         var result = "<img src=/" + filePath + ">";
         deferred.resolve(result);
     } else {
@@ -64,7 +66,7 @@ function processBlock(blk) {
 
             fs.writeFileSync(filePath, buffer, function(err) {
                 if (err)
-                  console.error(err);
+                    console.error(err);
             });
 
             var result = "<img src=/" + filePath + ">";
@@ -72,9 +74,6 @@ function processBlock(blk) {
             // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/17
             // To make sure the asserts always copied before pdf generation
             // Copy images to output folder every time
-            var output = book.output;
-            var rootPath = output.root();
-            var destFilePath = path.join(rootPath, assetPath);
             if (fs.existsSync(assetPath)) {
                 // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/22
                 // When destFilePath exist, file should copied
