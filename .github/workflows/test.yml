@@ -30,7 +30,6 @@ jobs:
         with:
           node-version: '${{ matrix.node-version }}'
       - uses: actions/checkout@v2
-      - run: npm ci --no-optional
       - run: npm -v && node -v
       - run: npm install && npm install --only=dev
       - run: npm run test
