@@ -172,14 +172,16 @@ module.exports = {
                         umls[i],
                         // Parameter parser for user argument to gitbook argument
                         umls[i].replace(/```(\x20|\t)*(uml|puml|plantuml)[ \t]+{(.*)}/i,
-                            function(match, p1, p2) {
+                            function(matchedStr) {
                                 var newStr = "";
                                 var modeQuote = false;
                                 var modeArray = false;
                                 var modeChar = false;
                                 var modeEqual = false;
                                 // Trim left and right space
-                                var str = p2.replace(/^\s+|\s+$/g,"");
+                                var str = matchedStr.replace(/^\s+|\s+$/g,"");
+                                // Remove ```(uml|puml|plantuml) header
+                                str = str.replace(/```(\x20|\t)*(uml|puml|plantuml)/i, "");
 
                                 // Build new str
                                 for(var i = 0; i < str.length; i++){
@@ -224,7 +226,8 @@ module.exports = {
                                 return "{% uml " + newStr + " %}";
                             })
                         .replace(/```(\x20|\t)*(uml|puml|plantuml)/i, '{% uml %}')
-                        .replace(/```/, '{% enduml %}'));
+                        .replace(/```/, '{% enduml %}')
+                    );
                 }
             }
             return page;
