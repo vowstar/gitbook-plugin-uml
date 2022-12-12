@@ -1,6 +1,6 @@
 # gitbook-plugin-uml
 
-[![Build Status](https://img.shields.io/travis/vowstar/gitbook-plugin-uml/master.svg?style=flat)](https://travis-ci.org/vowstar/gitbook-plugin-uml)
+[![Build Status](https://github.com/vowstar/gitbook-plugin-uml/actions/workflows/test.yml/badge.svg)](https://github.com/vowstar/gitbook-plugin-uml/actions)
 [![Coverage Status](https://coveralls.io/repos/github/vowstar/gitbook-plugin-uml/badge.svg?branch=master)](https://coveralls.io/github/vowstar/gitbook-plugin-uml?branch=master)
 [![NPM Version](https://img.shields.io/npm/v/gitbook-plugin-uml.svg?style=flat)](https://www.npmjs.org/package/gitbook-plugin-uml)
 [![NPM Downloads](https://img.shields.io/npm/dm/gitbook-plugin-uml.svg?style=flat)](https://www.npmjs.org/package/gitbook-plugin-uml)

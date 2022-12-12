@@ -30,4 +30,5 @@ jobs:
       - run: npm ci --no-optional
       - run: npm -v && node -v
       - run: npm install && npm install --only=dev
+      - run: npm run test
       - run: npm run coverage
