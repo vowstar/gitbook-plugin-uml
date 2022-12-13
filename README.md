@@ -180,4 +180,14 @@ Debian/Ubuntu users may need install ``default-jre`` prevent Error: spawn java E
 sudo apt-get install default-jre
 ```
 
+## Thanks
+
 This plugin original from [lyhcode/gitbook-plugin-plantuml](https://github.com/lyhcode/gitbook-plugin-plantuml)
+
+## See also
+
+These plugins are also available on honkit.
+
+|                                    Plugin                                     |                      Description                      |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [gitbook-plugin-wavedrom](https://github.com/vowstar/gitbook-plugin-wavedrom) | A plug-in that can draw waveforms and register tables |
