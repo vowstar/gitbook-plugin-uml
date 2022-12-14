@@ -23,7 +23,7 @@ Gitbook PlantUml plugin can be installed from NPM using:
 npm install gitbook-plugin-uml
 ```
 
-book.json add the plugin
+Add this plugin into ``book.json``.
 
 ```json
 {
