@@ -40,7 +40,6 @@
     }
   ],
   "name": "gitbook-plugin-uml",
-  "optionalDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/vowstar/gitbook-plugin-uml.git"
