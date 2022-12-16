@@ -1,13 +1,11 @@
+/*jshint esversion: 8 */
+
 var path = require('path');
-var spawn = require('child_process').spawn;
-var fs = require('fs-extra');
-var crypto = require('crypto');
+var fs = require('fs');
 var plantuml = require('node-plantuml-back');
 var Q = require('q');
 
 var nailgunRunning = false;
-
-var ASSET_PATH = 'assets/images/uml/';
 
 function processBlock(blk) {
     var deferred = Q.defer();
@@ -21,20 +19,23 @@ function processBlock(blk) {
         code = blk.body;
     }
 
-    var config = book.config.get('pluginsConfig.uml', {});
+    var config;
 
-    if (blk.kwargs.config) {
+    if (!!blk.kwargs.config) {
         config = blk.kwargs.config;
+    } else {
+        config = this.book.config.get('pluginsConfig.uml', {});
     }
 
-    var format = "svg";
-    if (config && config.format)
-        format = config.format;
-
-    var assetPath = ASSET_PATH;
-    var filePath = assetPath + crypto.createHash('sha1').update(code).digest('hex') + '.' + format;
-    var rootPath = book.output.root();
-    var destFilePath = path.join(rootPath, assetPath);
+    if (!config.format) {
+        config.format = "svg";
+    }
+    if (!config.charset) {
+        config.charset = "utf8";
+    }
+    if (!config.config) {
+        config.config = "classic";
+    }
 
     if (this.ctx && this.ctx.ctx && this.ctx.ctx.file && this.ctx.ctx.file.path) {
         var includePath = path.resolve(path.dirname(this.ctx.ctx.file.path));
@@ -50,45 +51,35 @@ function processBlock(blk) {
         }
     }
 
-    if (fs.existsSync(filePath) && fs.existsSync(destFilePath)) {
-        var result = "<img src=/" + filePath + ">";
+    var gen = plantuml.generate(code, config);
+
+    var chunks = [];
+    gen.out.on('data', function(chunk) {
+        chunks.push(chunk);
+    });
+    gen.out.on('end', function() {
+        var buffer = Buffer.concat(chunks);
+        var result;
+        if (config.format == 'ascii' || config.format == 'unicode') {
+            result = buffer.toString(config.charset)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/\n/g, "<br>")
+                .replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
+                .replace(/ /g, "&nbsp;");
+        } else if (config.format == 'svg') {
+            result = buffer.toString(config.charset);
+        } else {
+            // process config.format == 'png'
+            result = `<img src="data:image/png;base64,${buffer.toString("base64")}">`;
+        }
+
         deferred.resolve(result);
-    } else {
-        var gen = plantuml.generate(code, config);
+    });
 
-        var chunks = [];
-        gen.out.on('data', function(chunk) {
-            chunks.push(chunk);
-        });
-        gen.out.on('end', function() {
-            var buffer = Buffer.concat(chunks);
-            fs.mkdirpSync(assetPath);
-
-            fs.writeFileSync(filePath, buffer, function(err) {
-                if (err)
-                    console.error(err);
-            });
-
-            var result = "<img src=/" + filePath + ">";
-
-            // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/17
-            // To make sure the asserts always copied before pdf generation
-            // Copy images to output folder every time
-            if (fs.existsSync(assetPath)) {
-                // NOTE: fix https://github.com/vowstar/gitbook-plugin-uml/issues/22
-                // When destFilePath exist, file should copied
-                if (fs.existsSync(destFilePath)) {
-                    fs.copySync(assetPath, path.join(rootPath, assetPath));
-                } else {
-                    fs.mkdirSync(path.join(rootPath, assetPath), { recursive: true });
-                    fs.copySync(assetPath, path.join(rootPath, assetPath));
-                }
-            } else {
-                console.error("File not exist:" + filePath);
-            }
-            deferred.resolve(result);
-        });
-    }
     return deferred.promise;
 }
 
@@ -107,39 +98,47 @@ module.exports = {
         // This is called before the book is generated
         "init": function() {
             if (!Object.keys(this.book.config.get('pluginsConfig.uml', {})).length) {
-                var book = this;
-                var output = book.output;
-                var name = output.name.toString();
+                this.book.config.set('pluginsConfig.uml', {
+                    format: 'svg',
+                    charset: 'utf8',
+                    config: 'classic',
+                    nailgun: false
+                });
+            }
 
-                // NOTE: This fixed issue #2
-                // https://github.com/vowstar/gitbook-plugin-uml/issues/2
-                // Use SVG format by default in website when user not give
-                // any configuration to get better result.
-                var config = book.config.get('pluginsConfig.uml', {});
+            var config = this.book.config.get('pluginsConfig.uml', {});
 
-                if (config && config.format) {
-                    // Do nothing here, user have set config
+            if (!config.format) {
+                // Auto select svg or png
+                if (this.honkit) {
+                    // honkit support svg better, so use svg
+                    config.format = 'svg';
                 } else {
-                    if (name == 'website') {
-                        this.book.config.set('pluginsConfig.uml', {
-                            format: 'svg'
-                        });
+                    // NOTE: This fixed issue #2
+                    // https://github.com/vowstar/gitbook-plugin-uml/issues/2
+                    // Use SVG format by default in website when user not give
+                    // any configuration to get better result.
+                    if (this.output.name != 'website') {
+                        // gitbook pdf not support svg
+                        config.format = 'png';
                     } else {
-                        // Auto select svg or png
-                        if (this.honkit) {
-                            // honkit support svg better, so use svg
-                            this.book.config.set('pluginsConfig.uml', {
-                                format: 'svg'
-                            });
-                        } else {
-                            // gitbook pdf not support svg
-                            this.book.config.set('pluginsConfig.uml', {
-                                format: 'png'
-                            });
-                        }
+                        config.format = 'svg';
                     }
                 }
             }
+
+            if (!config.charset) {
+                config.charset = 'utf8';
+            }
+            if (!config.config) {
+                config.config = 'classic';
+            }
+            if (!config.nailgun) {
+                config.nailgun = false;
+            }
+
+            this.book.config.set('pluginsConfig.uml', config);
+
             var startNailgun = this.book.config.get('pluginsConfig.uml.nailgun', false);
             if (startNailgun && !nailgunRunning) {
                 plantuml.useNailgun(function() {

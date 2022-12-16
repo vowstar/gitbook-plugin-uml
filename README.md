@@ -130,7 +130,6 @@ book.json add the uml options
 
 Configure plugin in `book.json`.
 
-
 ```json
 "pluginsConfig": {
   "uml": {
@@ -145,16 +144,16 @@ Configure plugin in `book.json`.
 This plugin only works in your local machine. You need to play with local `gitbook` (command-line tool) to pre-compile all uml images.
 
 ```terminal
-$ gitbook serve yourbook
+gitbook serve yourbook
 ```
 
 or
 
 ```terminal
-$ gitbook build yourbook
+gitbook build yourbook
 ```
 
-## Additional requirements:
+## Additional requirements
 
 * Create a directory */assets/images/uml* in the root of your project.
 
