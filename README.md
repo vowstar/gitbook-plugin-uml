@@ -155,8 +155,6 @@ gitbook build yourbook
 
 ## Additional requirements
 
-* Create a directory */assets/images/uml* in the root of your project.
-
 For Mac OS X users. Install *graphviz* package.
 
 ```bash
