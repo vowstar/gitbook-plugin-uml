@@ -50,5 +50,5 @@
     "test": "nyc --reporter=lcov mocha --reporter spec --timeout 400000",
     "coverage": "cat ./coverage/lcov.info | coveralls"
   },
-  "version": "1.2.22"
+  "version": "1.2.23"
 }
