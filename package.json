@@ -6,14 +6,12 @@
     "url": "https://github.com/vowstar/gitbook-plugin-uml/issues"
   },
   "dependencies": {
-    "node-plantuml-back": "^1.x",
-    "promise": "^8.x",
-    "q": "^1.5.x"
+    "node-plantuml-back": "^1.1.4"
   },
   "description": "PlantUML plugin for GitBook and Honkit",
   "devDependencies": {
-    "coveralls": "^3.x",
-    "honkit-tester": "^1.x",
+    "codecov": "^3.x",
+    "honkit-tester": "^2.x",
     "is-svg": ">=4.0.0 <5.0.0",
     "jshint": "^2.x",
     "mocha": "^10.x",
@@ -48,7 +46,7 @@
     "lint": "jshint index.js test/**.js",
     "pretest": "npm run lint",
     "test": "nyc --reporter=lcov mocha --reporter spec --timeout 400000",
-    "coverage": "cat ./coverage/lcov.info | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | codecov"
   },
-  "version": "1.2.23"
+  "version": "2.0.0"
 }
